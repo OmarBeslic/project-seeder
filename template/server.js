@@ -6,7 +6,7 @@ import "dotenv/config";
 import { matchPath } from "react-router";
 
 import { getStyle } from "./src/api.js";
-import { prepareStyleCSS } from "./src/helpers.js";
+import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
 import { routes } from "./src/routes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -76,16 +76,8 @@ export async function createServer(
         matchPath({ path: route.path, exact: true, strict: false }, url)
       );
 
-      console.log("Ruta");
-      console.log(url);
-      console.log(match);
-
-      // ToDo - Get required params to pass to prefetch functions
-      // Example
-      // /       posts       /       antique       /     12
-      // / skip as not param /      :category      /    :id
-      // will be sent as { category: "antique", id: 12 }
-      const prefetchParams = {};
+      // Get required params to pass to prefetch functions
+      const prefetchParams = getRouteParams({ url, path: match.path });
 
       // Prefetch data for matched route
       const promises = [];
@@ -105,7 +97,7 @@ export async function createServer(
           );
         }
       });
-      await Promise.all(promises);
+      await Promise.allSettled(promises);
 
       globalThis.___PREFETCHED___ = prefetched;
 

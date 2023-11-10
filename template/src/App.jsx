@@ -9,7 +9,7 @@ for (const route of routes) {
   try {
     populatedRoutes.push({
       ...route,
-      component: (await import(`./pages/${route.slug}.jsx`)).default,
+      component: (await import(`./pages/${route.filename}.jsx`)).default,
     });
   } catch (error) {
     console.log(`Route`);
@@ -25,7 +25,7 @@ function App() {
           {/* Render routes */}
           {populatedRoutes.map((route) => (
             <Route
-              key={route.slug}
+              key={route.filename}
               path={route.path}
               element={route.component()}
             ></Route>

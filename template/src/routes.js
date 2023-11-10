@@ -3,36 +3,36 @@ import { getPost, getPosts } from "./api.js";
 export const routes = [
   {
     path: "/",
-    slug: "Home",
+    filename: "Home",
   },
   {
     path: "/about",
-    slug: "About",
+    filename: "About",
   },
   {
     path: "/posts",
-    slug: "Posts",
+    filename: "Posts",
     // Prefetch data for initial store state
     // { 'store key': 'action to perform to get data' }
     prefetch: [{ posts: getPosts }],
   },
   {
     path: "/post/:id",
-    slug: "Post",
+    filename: "Post",
     prefetch: [{ post: getPost }],
   },
   {
     path: "/dashboard",
-    slug: "Dashboard",
+    filename: "Dashboard",
     authenticated: true,
   },
   {
     path: "/users",
-    slug: "Users",
+    filename: "Users",
     authenticated: true,
   },
   {
     path: "*",
-    slug: "FourOfour",
+    filename: "FourOfour",
   },
 ];

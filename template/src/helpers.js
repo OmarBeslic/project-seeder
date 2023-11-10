@@ -32,3 +32,28 @@ export function showNotification({ message, length = 3 * 1000 }) {
     notification.remove();
   }, length);
 }
+
+// Get required params to pass to prefetch functions
+export const getRouteParams = ({ url, path }) => {
+  // Example
+  // /       posts       /       antique       /     12
+  // / skip as not param /      :category      /    :id
+  // will be sent as { category: "antique", id: 12 }
+  const preparedUrl = url[0] == "/" ? url.slice(1) : url.repeat(1);
+  const preparedPath = path[0] == "/" ? path.slice(1) : path.repeat(1);
+  const splittenUrl = preparedUrl.split("?").shift().split("/");
+  const splittenPath = preparedPath.repeat(1).split("/");
+
+  // For each param in path return key value pair
+  // param is defined if its path includes ':'
+  const params = {};
+  splittenPath.forEach((element, index) => {
+    if (element.includes(":")) {
+      const paramName = element.slice(1);
+      const paramValue = splittenUrl[index];
+
+      params[paramName] = paramValue;
+    }
+  });
+  return params;
+};
