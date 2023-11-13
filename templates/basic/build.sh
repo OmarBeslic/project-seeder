@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 version=$1
 
-repo="PLACEHOLDER_REPO"
+repo="PLACEHOLDER_PROJECT_FOLDER"
 target_platforms="linux/amd64"
 
 # exit when any command fails

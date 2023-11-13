@@ -1,0 +1,21 @@
+{
+  "name": "project-seeder",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://balsa-l@bitbucket.org/autautdoo/kubernetes-configs.git"
+  },
+  "author": "Balsa Lazarevic",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/autautdoo/kubernetes-configs#readme",
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "yargs": "^17.7.2"
+  }
+}
