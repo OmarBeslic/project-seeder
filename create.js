@@ -13,7 +13,7 @@ const argv = await yargs
   .option("projectName", { type: "string", require: true })
   .option("template", { type: "string", require: true }).argv;
 
-const DESTINATION_FOLDER = "created"; // ToDo - Folder from which the script is called - first create destination folder
+const DESTINATION_FOLDER = process.cwd(); // Folder from which the script is called - first create destination folder
 
 // Helpers
 const getAllFiles = async function (dirPath, arrayOfFiles = []) {
@@ -35,13 +35,9 @@ const getAllFiles = async function (dirPath, arrayOfFiles = []) {
 
 // Run
 const main = async ({ projectName, template }) => {
-  console.log("invoked from", process.cwd());
   // Copy template files to new folder
   var sourceDir = path.join(__dirname, `./templates/${template}`);
-  var destinationDir = path.join(
-    __dirname,
-    `./${DESTINATION_FOLDER}/${projectName}`
-  );
+  var destinationDir = `${DESTINATION_FOLDER}/${projectName}`;
   // // Check and create folder
   // // If folder already exists abort script not to overwrite files
   if (fs.existsSync(destinationDir)) {
