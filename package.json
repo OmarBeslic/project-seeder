@@ -1,9 +1,9 @@
 {
   "name": "project-seeder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create frontend apps in one line",
   "type": "module",
-  "main": "index.js",
+  "main": "create.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,7 +15,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/autautdoo/kubernetes-configs#readme",
   "dependencies": {
-    "fs-extra": "^10.1.0",
-    "yargs": "^17.7.2"
+    "@inquirer/prompts": "^3.3.0",
+    "fs-extra": "^10.1.0"
   }
 }

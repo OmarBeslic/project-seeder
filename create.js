@@ -1,17 +1,34 @@
+#!/usr/bin/env node
 import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
 import * as url from "url";
-import _yargs from "yargs";
-import { hideBin } from "yargs/helpers";
-const yargs = _yargs(hideBin(process.argv));
+
+import { input, select } from "@inquirer/prompts";
+
+// Ask user for params
+const params = {
+  projectName: await input({ message: "Enter project name" }),
+  template: await select({
+    message: "Select an app template",
+    choices: [
+      {
+        name: "basic",
+        value: "basic",
+        description: "Javascript template - Vite + Zustand",
+      },
+      {
+        name: "typescript",
+        value: "typescript",
+        description: "Typescript template - Vite + Zustand",
+        disabled: true,
+      },
+    ],
+  }),
+};
 
 // Alternative for ES module
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
-const argv = await yargs
-  .option("projectName", { type: "string", require: true })
-  .option("template", { type: "string", require: true }).argv;
 
 const DESTINATION_FOLDER = process.cwd(); // Folder from which the script is called - first create destination folder
 
@@ -86,7 +103,7 @@ const main = async ({ projectName, template }) => {
 
 console.log("Provided params");
 console.log("---------------");
-console.log("Project name - ", argv.projectName);
-console.log("Template - ", argv.template);
+console.log("Project name - ", params.projectName);
+console.log("Template - ", params.template);
 
-main(argv).catch((e) => console.log(e));
+main(params).catch((e) => console.log(e));
