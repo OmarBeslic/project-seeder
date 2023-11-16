@@ -1,14 +1,6 @@
 import { getPost, getPosts } from "./api.js";
 
-export const routes = [
-  {
-    path: "/",
-    filename: "Home",
-  },
-  {
-    path: "/about",
-    filename: "About",
-  },
+export const prefetchRoutes = [
   {
     path: "/posts",
     filename: "Posts",
@@ -20,19 +12,5 @@ export const routes = [
     path: "/post/:id",
     filename: "Post",
     prefetch: [{ post: getPost }],
-  },
-  {
-    path: "/dashboard",
-    filename: "Dashboard",
-    authenticated: true,
-  },
-  {
-    path: "/users",
-    filename: "Users",
-    authenticated: true,
-  },
-  {
-    path: "*",
-    filename: "FourOfour",
   },
 ];

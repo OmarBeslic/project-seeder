@@ -7,7 +7,8 @@ import { matchPath } from "react-router";
 
 import { getStyle } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
-import { routes } from "./src/routes.js";
+
+import { prefetchRoutes } from "./src/routes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -72,7 +73,7 @@ export async function createServer(
       };
 
       // Match route
-      const match = routes.find((route) =>
+      const match = prefetchRoutes.find((route) =>
         matchPath({ path: route.path, exact: true, strict: false }, url)
       );
 
