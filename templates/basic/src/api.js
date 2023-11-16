@@ -14,7 +14,7 @@ const MOCK_RESPONSES = {
       contentBackgroundColor:
         "linear-gradient(337deg, rgba(25,32,40,1) 0%, rgba(45,57,71,1) 64%, rgba(107,59,27,1) 100%)",
       contentTextColor: "#fff",
-      logo: "/assets/img/logo.png",
+      logo: "/assets/img/logo.svg",
       contentHeight: "430px",
       contentWidth: "650px",
       fontFamily: "Inter",
