@@ -8,7 +8,7 @@ import { matchPath } from "react-router";
 import { getStyle } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
 
-import { prefetchRoutes } from "./src/routes.js";
+import { prefetchRoutes } from "./src/prefetchRoutes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
