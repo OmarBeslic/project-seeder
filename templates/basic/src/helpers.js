@@ -34,7 +34,7 @@ export function showNotification({ message, length = 3 * 1000 }) {
 }
 
 // Get required params to pass to prefetch functions
-export const getRouteParams = ({ url, path }) => {
+export const getRouteParams = ({ url = "", path = "" } = {}) => {
   // Example
   // /       posts       /       antique       /     12
   // / skip as not param /      :category      /    :id

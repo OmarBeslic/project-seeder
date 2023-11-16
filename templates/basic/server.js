@@ -78,7 +78,7 @@ export async function createServer(
       );
 
       // Get required params to pass to prefetch functions
-      const prefetchParams = getRouteParams({ url, path: match.path });
+      const prefetchParams = getRouteParams({ url, path: match?.path });
 
       // Prefetch data for matched route
       const promises = [];
