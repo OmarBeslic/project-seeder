@@ -3,20 +3,15 @@ import { isClientSide } from "./helpers.js";
 const MOCK_RESPONSES = {
   STYLES: {
     default: {
-      htmlBackgroundColor: "#6b6b6b",
-      htmlTextColor: "#000",
-      layerOneBackgroundColor: "",
-      layerOneTextColor: "",
+      htmlBackgroundColor: "#e5e5e5",
+      htmlTextColor: "#242424",
+      layerOneBackgroundColor: "#1ac9a1",
+      layerOneTextColor: "#fff",
       layerTwoBackgroundColor: "",
       layerTwoTextColor: "",
       modalBackgroundColor: "",
       modalTextColor: "",
-      contentBackgroundColor:
-        "linear-gradient(337deg, rgba(25,32,40,1) 0%, rgba(45,57,71,1) 64%, rgba(107,59,27,1) 100%)",
-      contentTextColor: "#fff",
       logo: "/assets/img/logo.svg",
-      contentHeight: "430px",
-      contentWidth: "650px",
       fontFamily: "Inter",
       customStyle: ".withdraw-form .input-box.amount .action{ color: white; }",
     },
