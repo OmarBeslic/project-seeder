@@ -9,7 +9,7 @@ export default function Footer() {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="subtitle1">
-            {`${new Date().getFullYear()} | Vite | Zustand | MUI`}
+            {`${new Date().getFullYear()} | Vite | Express | Zustand | MUI`}
           </Typography>
         </Grid>
       </Grid>

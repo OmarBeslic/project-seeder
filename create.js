@@ -22,7 +22,7 @@ const params = {
         name: "SSR - Vite + Express + Zustand",
         value: "ssr-default",
         description:
-          "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
+          "Serverside Application template - Vite + Express + Zustand",
       },
       {
         name: "SSR - Vite + Express + Zustand + MUI",
