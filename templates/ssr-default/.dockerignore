@@ -1,0 +1,14 @@
+.git
+.idea
+node_modules
+build
+dist
+.eslintrc.js
+.eslintignore
+.eslintcache
+
+**/*.test.tsx
+
+k8s
+
+**/*.md
