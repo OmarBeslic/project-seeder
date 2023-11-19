@@ -13,15 +13,16 @@ const params = {
     message: "Select an app template",
     choices: [
       {
-        name: "basic",
-        value: "basic",
-        description: "Javascript template - Vite + Zustand",
+        name: "SPA - Vite + Zustand",
+        value: "spa",
+        description: "Single Page Application template - Vite + Zustand",
+        disabled: true,
       },
       {
-        name: "typescript",
-        value: "typescript",
-        description: "Typescript template - Vite + Zustand",
-        disabled: true,
+        name: "SSR - Vite + Express + Zustand",
+        value: "ssr",
+        description:
+          "Serverside Application template - Vite + Express + Zustand",
       },
     ],
   }),
