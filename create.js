@@ -19,10 +19,17 @@ const params = {
         disabled: true,
       },
       {
-        name: "SSR - Vite + Express + Zustand",
-        value: "ssr",
+        name: "SSR - Vite + Express + Zustand + Ant Design UI",
+        value: "ssr-ant",
         description:
-          "Serverside Application template - Vite + Express + Zustand",
+          "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
+        disabled: true,
+      },
+      {
+        name: "SSR - Vite + Express + Zustand + MUI",
+        value: "ssr-mui",
+        description:
+          "Serverside Application template - Vite + Express + Zustand + MUI",
       },
     ],
   }),
