@@ -28,16 +28,6 @@ const ACTIONS = (set) => {
         ...state,
         style: null,
       })),
-    updatePosts: (payload) =>
-      set((state) => ({
-        ...state,
-        posts: payload,
-      })),
-    updatePost: (payload) =>
-      set((state) => ({
-        ...state,
-        post: payload,
-      })),
   };
 };
 

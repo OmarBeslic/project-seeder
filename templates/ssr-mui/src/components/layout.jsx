@@ -1,8 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Container from "@mui/material/Container";
-
 import useStore from "../store";
-
 import Footer from "./footer";
 import Header from "./header";
 
@@ -12,9 +9,9 @@ export default function Layout() {
   return (
     <div id="app-wrapper">
       <Header />
-      <Container>
+      <div id="content-wrapper" className="content-wrapper">
         <Outlet />
-      </Container>
+      </div>
       <Footer />
     </div>
   );

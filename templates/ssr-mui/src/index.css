@@ -5,8 +5,12 @@ html * {
 
 body {
   margin: 0;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
   color: var(--htmlTextColor);
-  background: var(--htmlBackgroundColor);
+  background-color: var(--htmlBackgroundColor);
 }
 
 html *::-webkit-scrollbar {
@@ -41,40 +45,37 @@ html *::-webkit-scrollbar-thumb {
   width: 100vw;
 }
 
-.home-logo {
-  margin: 30px;
-  max-height: 300px;
-  max-width: 300px;
+/* Layout */
+#content-wrapper {
+  background: var(--contentBackgroundColor);
+  color: var(--contentTextColor);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  margin: auto;
+  border-radius: 12px;
+  padding: 30px;
+  height: var(--contentHeight);
+  width: var(--contentWidth);
+  transition: 0.1s all;
 }
 
-/* Header */
-.header-wrapper {
-  background: var(--layerOneBackgroundColor) !important;
-  color: var(--layerOneTextColor) !important;
+.header-logo {
+  max-height: 120px;
+  max-width: 120px;
 }
 
-header a.link {
-  text-decoration: none;
-  color: var(--layerOneTextColor) !important;
-}
-
-header a.link.active {
-  font-weight: 600;
-}
-
-/* Footer */
-.footer {
-  background: var(--layerOneBackgroundColor) !important;
-  color: var(--layerOneTextColor) !important;
-  margin: 0px !important;
-  max-width: none !important;
-  box-shadow: -1px -1px 10px #0000002b;
-  position: fixed;
-  bottom: 0;
-  /* min-height: 200px; */
-}
-
-/* Media queries */
-/* Mobile */
 @media screen and (max-width: 576px) {
+  /* App */
+  #app-wrapper {
+    height: 100vh;
+  }
+
+  #content-wrapper {
+    height: 100vh !important;
+    width: auto !important;
+    max-height: 100vh !important;
+    max-width: 100vw;
+    border-radius: 0px;
+  }
 }
