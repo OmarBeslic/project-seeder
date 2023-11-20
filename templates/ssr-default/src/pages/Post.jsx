@@ -1,9 +1,39 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getPost } from "../api";
 import useStore from "../store";
 
 export default function Post() {
-  const { post } = useStore();
+  const { post, updatePost } = useStore();
+  let { id } = useParams();
 
-  console.log("post", post?.id);
+  const fetchPost = async ({ id }) => {
+    const data = await getPost({ id });
+    updatePost(data);
+  };
 
-  return <div>PLACEHOLDER_PROJECT_FOLDER</div>;
+  useEffect(() => {
+    // Fetch new data if post is not fetched or wrong post data is fetched
+    if (!post || post?.id != id) {
+      fetchPost({ id });
+    }
+    return () => {
+      updatePost(null);
+    };
+  }, []);
+
+  return (
+    <>
+      <h3
+        style={{
+          fontWeight: "bold",
+          marginTop: 20,
+          marginBottom: 20,
+        }}
+      >
+        {post?.title}
+      </h3>
+      <div style={{ textAlign: "justify" }}>{post?.body}</div>
+    </>
+  );
 }

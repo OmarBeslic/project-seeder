@@ -46,6 +46,10 @@ html *::-webkit-scrollbar-thumb {
 }
 
 /* Layout */
+.header {
+  margin-bottom: 10px;
+}
+
 #content-wrapper {
   background: var(--contentBackgroundColor);
   color: var(--contentTextColor);
@@ -60,9 +64,44 @@ html *::-webkit-scrollbar-thumb {
   transition: 0.1s all;
 }
 
-.header-logo {
-  max-height: 120px;
-  max-width: 120px;
+.home-logo {
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.link {
+  font-weight: 200;
+  color: var(--contentTextColor);
+  text-decoration: none;
+  margin: 0px 10px;
+}
+
+.link.active {
+  font-weight: 600;
+}
+
+/* Posts */
+.post-item-wrapper {
+  width: 48%;
+  margin-bottom: 30px;
+  margin-right: 2%;
+  padding: 17px;
+  display: inline-block;
+  vertical-align: top;
+  background: #00000014;
+  border-radius: 7px;
+}
+
+.post-item-title {
+  font-weight: 500;
+}
+
+.post-item-body {
+  font-weight: 100;
+}
+
+.post-item-link {
+  font-weight: 300;
 }
 
 @media screen and (max-width: 576px) {
@@ -77,5 +116,18 @@ html *::-webkit-scrollbar-thumb {
     max-height: 100vh !important;
     max-width: 100vw;
     border-radius: 0px;
+  }
+
+  .header {
+    margin-top: 10px;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    height: 30px;
+    text-align: center;
+    width: 100vw;
+    background-color: var(--htmlBackgroundColor);
   }
 }
