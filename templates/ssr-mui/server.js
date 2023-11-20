@@ -2,10 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
+import cookieParser from "cookie-parser";
 import "dotenv/config";
 import { matchPath } from "react-router";
 
-import { getStyle } from "./src/api.js";
+import { getStyle, getUser } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
 
 import { prefetchRoutes } from "./src/prefetchRoutes.js";
@@ -63,7 +64,7 @@ export async function createServer(
     );
   }
 
-  app.use("*", async (req, res) => {
+  app.use(cookieParser()).use("*", async (req, res) => {
     try {
       const url = req.originalUrl;
 
@@ -71,6 +72,11 @@ export async function createServer(
       const prefetched = {
         style: await getStyle(),
       };
+
+      // Get user if JWT sent in cookie
+      if (req?.cookies?.userJWT) {
+        prefetched.user = await getUser({ jwt: req.cookies.userJWT });
+      }
 
       // Match route
       const match = prefetchRoutes.find((route) =>

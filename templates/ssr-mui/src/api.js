@@ -7,8 +7,8 @@ const MOCK_RESPONSES = {
       htmlTextColor: "#242424",
       layerOneBackgroundColor: "#1ac9a1",
       layerOneTextColor: "#fff",
-      layerTwoBackgroundColor: "",
-      layerTwoTextColor: "",
+      layerTwoBackgroundColor: "#1ac9a1",
+      layerTwoTextColor: "#fff",
       modalBackgroundColor: "",
       modalTextColor: "",
       logo: "/assets/img/logo.svg",
@@ -22,7 +22,7 @@ const MOCK_RESPONSES = {
       username: "vetar",
       firstName: "Petar",
       lastName: "Vološkin",
-      token: "bbbbbbbbbbbbbb",
+      jwt: "fojaifejqioowfqjhfufivq2147g2bdhwqhjvcag",
     },
   },
 };
@@ -53,7 +53,34 @@ const apiGet = async ({ url, headers, options }) => {
   return data;
 };
 
-// const apiPost = async ({ url, headers, options }) => {};
+const apiPost = async ({ url, headers, options }) => {
+  // Prepare object to return
+  let data = {
+    success: false,
+    data: null,
+    error: null,
+  };
+
+  // Add default options
+  const requiredOptions = {
+    method: "POST",
+  };
+
+  // Populate with successfull data or error
+  try {
+    const fetched = await fetch(url, {
+      ...options,
+      ...requiredOptions,
+      headers,
+    });
+    data.data = await fetched.json();
+    data.success = true;
+  } catch (error) {
+    data.error = error;
+  }
+
+  return data;
+};
 
 // const apiPut = async ({ url, headers, options }) => {};
 
@@ -71,8 +98,31 @@ export const getStyle = async () => {
 };
 
 // Specific api requests
-export const login = async ({ identifier, password }) => {
-  // Authenticate user with provided token
+export const login = async ({ identifier, password } = {}) => {
+  // Login user
+  // const loginUrl = `${API_BASE_URL}/login`;
+  // let loggedIn = await apiPost({ url: loginUrl, options: { body: { identifier, password} } });
+
+  // Return mock user
+  const loggedIn = { data: MOCK_RESPONSES.AUTH.user };
+
+  // If user logged in successfully save token to cookie to use it throughout app
+  if (loggedIn?.data?.jwt) {
+    document.cookie = `userJWT=${loggedIn?.data?.jwt}; path=/; max-age=604800`;
+  }
+
+  return loggedIn?.data || false;
+};
+
+export const logout = async () => {
+  // Logout user
+  // const logoutUrl = `${API_BASE_URL}/logout`;
+  // let loggedOut = await apiGet({ url: logoutUrl });
+
+  // Clear JWT cookie
+  document.cookie = "userJWT=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+  return true;
 };
 
 export const getUsers = async () => {
@@ -84,11 +134,13 @@ export const getUsers = async () => {
   return users || false;
 };
 
-export const getUser = async ({ id }) => {
-  // Get user by id
-  const userBaseURL = `${API_BASE_URL}/users/${id}`;
-  let user = await fetch(userBaseURL);
-  user = await user.json();
+export const getUser = async ({ jwt }) => {
+  // Get user
+  // const userUrl = `${API_BASE_URL}/user`;
+  // let user = await apiPost({ url: userUrl });
+
+  // Return mock user
+  const user = { data: MOCK_RESPONSES.AUTH.user };
 
   return user || false;
 };

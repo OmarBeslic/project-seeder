@@ -53,13 +53,22 @@ html *::-webkit-scrollbar-thumb {
   color: var(--layerOneTextColor) !important;
 }
 
-header a.link {
+a.link {
   text-decoration: none;
   color: var(--layerOneTextColor) !important;
 }
 
-header a.link.active {
+a.link.active {
   font-weight: 600;
+}
+
+#menu-appbar .link {
+  color: black !important;
+}
+
+.login-input {
+  width: 100%;
+  margin: 10px 0px;
 }
 
 /* Footer */
