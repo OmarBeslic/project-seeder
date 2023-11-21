@@ -10,6 +10,7 @@ import { getStyle, getUser } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
 
 import { prefetchRoutes } from "./src/prefetchRoutes.js";
+import { COOKIE_NAME_JWT } from "./types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -68,15 +69,12 @@ export async function createServer(
     try {
       const url = req.originalUrl;
 
-      // Prefetch global data
-      const prefetched = {
-        style: await getStyle(),
-      };
+      // Prepare initial state to be used in store
+      const prefetched = {};
 
-      // Get user if JWT sent in cookie
-      if (req?.cookies?.userJWT) {
-        prefetched.user = await getUser({ jwt: req.cookies.userJWT });
-      }
+      // Get cookies and store them in global scope and in store
+      globalThis.___COOKIES___ = req?.cookies;
+      prefetched.cookies = req?.cookies;
 
       // Match route
       const match = prefetchRoutes.find((route) =>
@@ -86,11 +84,17 @@ export async function createServer(
       // Get required params to pass to prefetch functions
       const prefetchParams = getRouteParams({ url, path: match?.path });
 
-      // Prefetch data for matched route
-      const promises = [];
-      match?.prefetch?.forEach((routeFetch) => {
+      // Prefetch global data and specific data for matched route
+      const prefetchData = [
+        { style: getStyle },
+        { user: getUser },
+        ...[match?.prefetch],
+      ];
+
+      const prefetchPromises = [];
+      prefetchData.forEach((routeFetch) => {
         for (const key in routeFetch) {
-          promises.push(
+          prefetchPromises.push(
             new Promise(async (resolve) => {
               try {
                 prefetched[key] = await routeFetch[key](prefetchParams);
@@ -104,7 +108,7 @@ export async function createServer(
           );
         }
       });
-      await Promise.allSettled(promises);
+      await Promise.allSettled(prefetchPromises);
 
       globalThis.___PREFETCHED___ = prefetched;
 

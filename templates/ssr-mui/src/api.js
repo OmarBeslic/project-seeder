@@ -1,3 +1,4 @@
+import { COOKIE_NAME_JWT } from "../types.js";
 import { isClientSide } from "./helpers.js";
 
 const MOCK_RESPONSES = {
@@ -53,6 +54,24 @@ const apiGet = async ({ url, headers, options }) => {
   return data;
 };
 
+const apiGetAuthenticated = async ({
+  url,
+  headers = {},
+  options = {},
+} = {}) => {
+  //
+  const authenticationHeaders = {
+    Authorization: "Bearer " + JWT,
+  };
+  const data = await apiGet({
+    url,
+    headers: { ...headers, ...authenticationHeaders },
+    options,
+  });
+
+  return data;
+};
+
 const apiPost = async ({ url, headers, options }) => {
   // Prepare object to return
   let data = {
@@ -82,6 +101,21 @@ const apiPost = async ({ url, headers, options }) => {
   return data;
 };
 
+// Prepare object to return
+let data = {
+  success: false,
+  data: null,
+  error: null,
+};
+
+// Populate with successfull data or error
+try {
+  const fetched = await fetch(url, { ...options, headers });
+  data.data = await fetched.json();
+  data.success = true;
+} catch (error) {
+  data.error = error;
+}
 // const apiPut = async ({ url, headers, options }) => {};
 
 // Config requests
@@ -108,7 +142,7 @@ export const login = async ({ identifier, password } = {}) => {
 
   // If user logged in successfully save token to cookie to use it throughout app
   if (loggedIn?.data?.jwt) {
-    document.cookie = `userJWT=${loggedIn?.data?.jwt}; path=/; max-age=604800`;
+    document.cookie = `${COOKIE_NAME_JWT}=${loggedIn?.data?.jwt}; path=/; max-age=604800`;
   }
 
   return loggedIn?.data || false;
@@ -120,7 +154,7 @@ export const logout = async () => {
   // let loggedOut = await apiGet({ url: logoutUrl });
 
   // Clear JWT cookie
-  document.cookie = "userJWT=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = `${COOKIE_NAME_JWT}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
   return true;
 };
@@ -134,10 +168,18 @@ export const getUsers = async () => {
   return users || false;
 };
 
-export const getUser = async ({ jwt }) => {
+export const getUser = async () => {
+  // Return null if JWT cookie not available
+  const JWT =
+    (globalThis.___COOKIES___ && globalThis.___COOKIES___[COOKIE_NAME_JWT]) ||
+    null;
+  if (!JWT) {
+    return null;
+  }
+
   // Get user
   // const userUrl = `${API_BASE_URL}/user`;
-  // let user = await apiPost({ url: userUrl });
+  // let user = await apiGetAuthenticated({ url: userUrl });
 
   // Return mock user
   const user = { data: MOCK_RESPONSES.AUTH.user };
