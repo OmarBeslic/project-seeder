@@ -42,9 +42,14 @@ html *::-webkit-scrollbar-thumb {
 }
 
 .home-logo {
-  margin: 30px;
+  margin: 60px 0px 30px 0px;
   max-height: 300px;
   max-width: 300px;
+}
+
+/* Layout */
+.content-container {
+  margin-bottom: 70px;
 }
 
 /* Header */
@@ -115,6 +120,24 @@ a.link.active {
   position: fixed;
   bottom: 0;
   /* min-height: 200px; */
+}
+
+/* Get started */
+.get-started-step-wrapper {
+  padding: 20px 0px;
+}
+
+.get-started-label {
+  flex-direction: column !important;
+}
+
+.MuiStepLabel-iconContainer {
+  padding: 5px !important;
+}
+
+.css-1vyamtt-MuiStepLabel-labelContainer span {
+  font-size: 16px;
+  padding-top: 3px;
 }
 
 /* Media queries */

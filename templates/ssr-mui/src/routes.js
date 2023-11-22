@@ -1,5 +1,6 @@
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
+import GetStarted from "./pages/GetStarted.jsx";
 import Posts from "./pages/Posts.jsx";
 import Post from "./pages/Post.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -16,6 +17,11 @@ export const routes = [
     path: "/about",
     slug: "about",
     component: About,
+  },
+  {
+    path: "/get-started",
+    slug: "getStarted",
+    component: GetStarted,
   },
   {
     path: "/posts",
