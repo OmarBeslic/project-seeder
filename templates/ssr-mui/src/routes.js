@@ -3,7 +3,7 @@ import About from "./pages/About.jsx";
 import Posts from "./pages/Posts.jsx";
 import Post from "./pages/Post.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Users from "./pages/Users.jsx";
+import Profile from "./pages/Profile.jsx";
 import FourOfour from "./pages/FourOfour.jsx";
 
 export const routes = [
@@ -34,10 +34,10 @@ export const routes = [
     component: Dashboard,
   },
   {
-    path: "/users",
-    slug: "users",
+    path: "/profile",
+    slug: "profile",
     authentication: true,
-    component: Users,
+    component: Profile,
   },
   {
     path: "*",

@@ -38,6 +38,11 @@ const ACTIONS = (set) => {
         ...state,
         post: payload,
       })),
+    updateUsers: (payload) =>
+      set((state) => ({
+        ...state,
+        users: payload,
+      })),
   };
 };
 

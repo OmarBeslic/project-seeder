@@ -7,7 +7,7 @@ export default function About() {
     <>
       <div
         style={{
-          fontWeight: "bold",
+          fontWeight: 20,
           fontSize: 36,
           marginTop: 20,
           marginBottom: 20,

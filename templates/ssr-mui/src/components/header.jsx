@@ -36,7 +36,8 @@ const MenuLoggedIn = ({
 }) => {
   const { updateUser } = useStore();
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault()
     updateUser(null);
     logout();
   };
@@ -78,6 +79,7 @@ const MenuLoggedIn = ({
         ))}
         <MenuItem key={"itemlogout"} onClick={handleCloseUserMenu}>
           <NavLink
+            to={"/logout"}
             className={({ isActive, isPending }) =>
               isPending ? "link pending" : isActive ? "link active" : "link"
             }

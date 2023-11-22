@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <>
-      <div style={{ fontWeight: "bold", fontSize: 36, marginTop: 40 }}>
+      <div style={{ fontWeight: 200, fontSize: 36, marginTop: 40 }}>
         Home
       </div>
       <img className="home-logo" src={style?.logo} />
