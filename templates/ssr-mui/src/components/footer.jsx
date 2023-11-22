@@ -5,12 +5,11 @@ export default function Footer() {
     <Container className="footer">
       <Grid container direction="column" alignItems="center">
         <Grid item xs={12}>
-          <Typography variant="h5">Project Seeder</Typography>
+          <Typography variant="h5">PLACEHOLDER_PROJECT_FOLDER</Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1">
-            {`${new Date().getFullYear()} | Vite | Express | Zustand | MUI`}
-          </Typography>
+          <span style={{ fontWeight: 300 }}>created with </span>
+          <span style={{ fontWeight: 500 }}>project seeder </span>
         </Grid>
       </Grid>
     </Container>

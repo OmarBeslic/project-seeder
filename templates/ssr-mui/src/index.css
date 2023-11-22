@@ -71,12 +71,36 @@ a.link.active {
   margin: 10px 0px;
 }
 
+/* Protected and 404 */
+.protected-wrapper,
+.fourofour-wrapper {
+  margin-top: 70px;
+}
+
+.protected-wrapper .icon,
+.fourofour-wrapper .icon {
+  max-height: 192px;
+  max-width: 192px;
+}
+
+.protected-title,
+.fourofour-title {
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.protected-subtitle,
+.fourofour-subtitle {
+  font-weight: 200;
+}
+
 /* Footer */
 .footer {
   background: var(--layerOneBackgroundColor) !important;
   color: var(--layerOneTextColor) !important;
   margin: 0px !important;
   max-width: none !important;
+  padding: 5px 0px;
   box-shadow: -1px -1px 10px #0000002b;
   position: fixed;
   bottom: 0;

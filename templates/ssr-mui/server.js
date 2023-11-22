@@ -10,7 +10,6 @@ import { getStyle, getUser } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
 
 import { prefetchRoutes } from "./src/prefetchRoutes.js";
-import { COOKIE_NAME_JWT } from "./types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

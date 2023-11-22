@@ -65,7 +65,7 @@ const MenuLoggedIn = ({
         onClose={handleCloseUserMenu}
       >
         {loggedInMenu?.map((item) => (
-          <MenuItem key={`item${item}`} onClick={handleCloseUserMenu}>
+          <MenuItem key={`item${item.title}`} onClick={handleCloseUserMenu}>
             <NavLink
               className={({ isActive, isPending }) =>
                 isPending ? "link pending" : isActive ? "link active" : "link"
@@ -261,7 +261,10 @@ export default function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={`page${page.title}`} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={`page${page.title}`}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">
                     <NavLink
                       className={({ isActive, isPending }) =>

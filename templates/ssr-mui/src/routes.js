@@ -30,13 +30,13 @@ export const routes = [
   {
     path: "/dashboard",
     slug: "dashboard",
-    authenticated: true,
+    authentication: true,
     component: Dashboard,
   },
   {
     path: "/users",
     slug: "users",
-    authenticated: true,
+    authentication: true,
     component: Users,
   },
   {
