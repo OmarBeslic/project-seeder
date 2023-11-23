@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+import * as child from "child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,6 +17,25 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isTest = process.env.VITEST;
 const appPort = process.env.APP_PORT || 3000;
+var openBrowserCommand =
+  process.platform == "darwin"
+    ? "open"
+    : process.platform == "win32"
+    ? "start"
+    : "xdg-open";
+
+// Helpers
+function executeShell(cmd) {
+  const exec = child.exec;
+  return new Promise((resolve, reject) => {
+    exec(cmd, (error, stdout, stderr) => {
+      if (error || stderr) {
+        reject(stderr);
+      }
+      resolve(stdout);
+    });
+  });
+}
 
 export async function createServer(
   root = process.cwd(),
@@ -177,9 +198,17 @@ export async function createServer(
 }
 
 if (!isTest) {
+  // Run server
   createServer().then(({ app }) =>
     app.listen(appPort, () => {
-      console.log(`http://localhost:${appPort}`);
+      const appUrl = `http://localhost:${appPort}`;
+
+      console.log(""); // Empty space
+      console.log(`Your app is served on ${appUrl}`);
+      console.log(""); // Empty space
+
+      // Open browser
+      executeShell(openBrowserCommand + " " + appUrl);
     })
   );
 }

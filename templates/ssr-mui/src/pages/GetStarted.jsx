@@ -61,17 +61,6 @@ function StepSSR() {
           page load performance and search engine optimization.
           <br />
           <br />
-          In addition to SSR, your{" "}
-          <span style={{ fontWeight: 600 }}>server.js</span> file manages data
-          prefetching. This involves fetching necessary data before rendering
-          the components, optimizing the app's performance. The server initiates
-          global requests like{" "}
-          <span style={{ fontWeight: 600 }}>getStyle and getUser</span> that are
-          relevant to the entire application. Moreover, it dynamically fetches
-          specific data based on the route the user is accessing, ensuring that
-          each page has the required information ready before rendering.
-          <br />
-          <br />
           On the client side, the{" "}
           <span style={{ fontWeight: 600 }}>entry-client.js </span> file serves
           the same <span style={{ fontWeight: 600 }}>App.jsx </span>
@@ -80,6 +69,17 @@ function StepSSR() {
           approach of SSR and client-side rendering (CSR) combines the best of
           both worlds, providing a faster initial load and a responsive user
           experience.
+          <br />
+          <br />
+          In addition to serverside rendering, your{" "}
+          <span style={{ fontWeight: 600 }}>server.js</span> file manages data
+          prefetching. This involves fetching necessary data before rendering
+          the components, optimizing the app's performance. The server initiates
+          global requests like{" "}
+          <span style={{ fontWeight: 600 }}>getStyle and getUser</span> that are
+          relevant to the entire application. Moreover, it dynamically fetches
+          specific data based on the route the user is accessing, ensuring that
+          each page has the required information ready before rendering.
         </div>
         <img
           src="/assets/img/getstarted/ssr.svg"
@@ -452,15 +452,20 @@ function StepDone() {
           Start Developing!
         </div>
         <div style={{ textAlign: "center", fontSize: 20, lineHeight: 1.7 }}>
-          <iframe
-            src="https://lottie.host/embed/f0517254-7863-4364-8dae-4c2bf1742822/gFgf6VoXNc.json"
+          <div
             style={{
-              width: "100%",
-              border: "none",
-              minHeight: 200,
-              maxHeight: 300,
+              textAlign: "center",
+              margin: 90,
             }}
-          ></iframe>
+          >
+            <img
+              src="/assets/img/logo.svg"
+              style={{
+                maxHeight: 300,
+                maxWidth: 300,
+              }}
+            />
+          </div>
           We're excited to see what you build with this powerful foundation!
         </div>
       </div>
