@@ -140,6 +140,13 @@ a.link.active {
   padding-top: 3px;
 }
 
+.code-example {
+  background: black;
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
+}
+
 /* Media queries */
 /* Mobile */
 @media screen and (max-width: 576px) {

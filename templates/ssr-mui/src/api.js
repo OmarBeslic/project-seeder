@@ -83,6 +83,10 @@ const apiPost = async ({ url, headers, options }) => {
   // Add default options
   const requiredOptions = {
     method: "POST",
+    headers: {
+      Authorization: "Bearer " + JWT,
+      ...headers,
+    },
   };
 
   // Populate with successfull data or error
@@ -90,7 +94,6 @@ const apiPost = async ({ url, headers, options }) => {
     const fetched = await fetch(url, {
       ...options,
       ...requiredOptions,
-      headers,
     });
     data.data = await fetched.json();
     data.success = true;
@@ -162,10 +165,9 @@ export const logout = async () => {
 export const getUsers = async () => {
   // Get all users
   const usersBaseURL = `${API_BASE_URL}/users`;
-  let users = await fetch(usersBaseURL);
-  users = await users.json();
-
-  return users || false;
+  let users = await apiGet({ url: usersBaseURL });
+  console.log(users);
+  return users?.data || false;
 };
 
 export const getUser = async () => {
