@@ -24,6 +24,7 @@ const params = {
         value: "ssr-default",
         description:
           "Serverside Application template - Vite + Express + Zustand",
+        disabled: true,
       },
       {
         name: "SSR - Vite + Express + Zustand + MUI",
