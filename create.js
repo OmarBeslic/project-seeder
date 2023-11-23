@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import * as child from "child_process";
 import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
@@ -23,6 +24,7 @@ const params = {
         value: "ssr-default",
         description:
           "Serverside Application template - Vite + Express + Zustand",
+        disabled: true,
       },
       {
         name: "SSR - Vite + Express + Zustand + MUI",
@@ -63,6 +65,18 @@ const getAllFiles = async function (dirPath, arrayOfFiles = []) {
 
   return arrayOfFiles;
 };
+
+function executeShell(cmd) {
+  const exec = child.exec;
+  return new Promise((resolve, reject) => {
+    exec(cmd, (error, stdout, stderr) => {
+      if (error || stderr) {
+        reject(stderr);
+      }
+      resolve(stdout);
+    });
+  });
+}
 
 // Run
 const main = async ({ projectName, template }) => {
@@ -112,12 +126,15 @@ const main = async ({ projectName, template }) => {
       });
     });
   });
-  console.log("All done");
-};
 
-console.log("Provided params");
-console.log("---------------");
-console.log("Project name - ", params.projectName);
-console.log("Template - ", params.template);
+  console.log("Installing dependencies");
+  await executeShell(`cd ./${projectName} && npm i`);
+
+  console.log("Your project has been created!");
+  console.log("");
+  console.log(
+    `Go to folder '${projectName}' and run it with 'npm start' or 'yarn start'`
+  );
+};
 
 main(params).catch((e) => console.log(e));

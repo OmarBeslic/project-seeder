@@ -38,10 +38,15 @@ const ACTIONS = (set) => {
         ...state,
         post: payload,
       })),
+    updateUsers: (payload) =>
+      set((state) => ({
+        ...state,
+        users: payload,
+      })),
   };
 };
 
-// Initialize new store on server
+// Initialize new store on server that'll function as a singleton
 const useStoreServer = () => {
   const newStore = create((set) => ({
     ...INITIAL_STATE,

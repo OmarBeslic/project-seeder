@@ -11,9 +11,9 @@ function App() {
         {/* Use Layout as a wrapper for whole app (every route) */}
         <Route element={<Layout />}>
           {/* Render routes */}
-          {routes.map((route) => (
+          {routes.map((route, index) => (
             <Route
-              key={route.slug}
+              key={index}
               path={route.path}
               element={<route.component />}
             ></Route>

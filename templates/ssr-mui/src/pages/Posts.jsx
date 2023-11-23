@@ -47,6 +47,15 @@ export default function Posts() {
 
   return (
     <>
+      <div
+        style={{
+          fontWeight: 200,
+          fontSize: 36,
+          marginTop: 20,
+        }}
+      >
+        Posts
+      </div>
       <Grid container spacing={2}>
         {posts?.map((post) => (
           <BasicCard key={post.id} data={post} />

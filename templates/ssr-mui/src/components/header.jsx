@@ -14,6 +14,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
+import { Modal, TextField } from "@mui/material";
+import { login, logout } from "../api";
 
 const pages = [
   { title: "Home", link: "/" },
@@ -21,10 +23,170 @@ const pages = [
   { title: "Posts", link: "/posts" },
 ];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const loggedInMenu = [
+  { title: "Dashboard", link: "/dashboard" },
+  { title: "My profile", link: "/profile" },
+];
+
+const MenuLoggedIn = ({
+  handleOpenUserMenu,
+  handleCloseUserMenu,
+  loggedInMenu,
+  anchorElUser,
+}) => {
+  const { updateUser } = useStore();
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    updateUser(null);
+    logout();
+  };
+
+  return (
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title="Open user menu">
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        sx={{ mt: "45px" }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        {loggedInMenu?.map((item) => (
+          <MenuItem key={`item${item.title}`} onClick={handleCloseUserMenu}>
+            <NavLink
+              className={({ isActive, isPending }) =>
+                isPending ? "link pending" : isActive ? "link active" : "link"
+              }
+              to={item.link}
+            >
+              {item.title}
+            </NavLink>
+          </MenuItem>
+        ))}
+        <MenuItem key={"itemlogout"} onClick={handleCloseUserMenu}>
+          <NavLink
+            to={"/logout"}
+            className={({ isActive, isPending }) =>
+              isPending ? "link pending" : isActive ? "link active" : "link"
+            }
+            onClick={handleLogout}
+          >
+            Logout
+          </NavLink>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+
+const MenuLoggedOut = () => {
+  const { updateUser } = useStore();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    const loggedIn = await login({ identifier: username, password });
+
+    // Handle reponse
+    if (loggedIn) {
+      updateUser(loggedIn);
+      handleModalClose();
+    } else {
+      alert("Wrong credentials");
+    }
+  };
+
+  return (
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title="Login">
+        <Button
+          onClick={handleModalOpen}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          Login
+        </Button>
+      </Tooltip>
+      <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "var(--layerTwoBackgroundColor)",
+            color: "var(--layerTwoTextColor)",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            textAlign="center"
+          >
+            Login user
+          </Typography>
+          <TextField
+            required
+            label="Username"
+            placeholder="Enter username"
+            className="login-input"
+            value={username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <TextField
+            required
+            type="password"
+            label="Password"
+            placeholder="Enter password"
+            className="login-input"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <Button
+            onClick={handleLogin}
+            sx={{ color: "white", display: "block", marginTop: "20px" }}
+          >
+            Login
+          </Button>
+        </Box>
+      </Modal>
+    </Box>
+  );
+};
 
 export default function Header() {
-  const { style } = useStore();
+  const { style, user } = useStore();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -32,6 +194,7 @@ export default function Header() {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -42,6 +205,10 @@ export default function Header() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const isLoggedIn = () => {
+    return !!user;
   };
 
   return (
@@ -96,7 +263,10 @@ export default function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={`page${page.title}`}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">
                     <NavLink
                       className={({ isActive, isPending }) =>
@@ -132,13 +302,17 @@ export default function Header() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page.title}
+                key={`button${page.title}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 <NavLink
                   className={({ isActive, isPending }) =>
-                    isPending ? "link pending" : isActive ? "link active" : "link"
+                    isPending
+                      ? "link pending"
+                      : isActive
+                      ? "link active"
+                      : "link"
                   }
                   to={page.link}
                 >
@@ -148,35 +322,16 @@ export default function Header() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {isLoggedIn() ? (
+            <MenuLoggedIn
+              handleOpenUserMenu={handleOpenUserMenu}
+              handleCloseUserMenu={handleCloseUserMenu}
+              anchorElUser={anchorElUser}
+              loggedInMenu={loggedInMenu}
+            />
+          ) : (
+            <MenuLoggedOut />
+          )}
         </Toolbar>
       </Container>
     </AppBar>

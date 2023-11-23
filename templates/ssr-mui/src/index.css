@@ -42,9 +42,14 @@ html *::-webkit-scrollbar-thumb {
 }
 
 .home-logo {
-  margin: 30px;
+  margin: 60px 0px 30px 0px;
   max-height: 300px;
   max-width: 300px;
+}
+
+/* Layout */
+.content-container {
+  margin-bottom: 70px;
 }
 
 /* Header */
@@ -53,13 +58,55 @@ html *::-webkit-scrollbar-thumb {
   color: var(--layerOneTextColor) !important;
 }
 
-header a.link {
+a.link {
   text-decoration: none;
   color: var(--layerOneTextColor) !important;
 }
 
-header a.link.active {
+a.link.active {
   font-weight: 600;
+}
+
+#menu-appbar .link {
+  color: black !important;
+}
+
+.login-input {
+  width: 100%;
+  margin: 10px 0px;
+}
+
+/* Profile */
+.profile-wrapper pre {
+  text-align: left;
+  background: white;
+  padding: 10px;
+  font-weight: 100 !important;
+  line-height: 2;
+  border-radius: 5px;
+}
+
+/* Protected and 404 */
+.protected-wrapper,
+.fourofour-wrapper {
+  margin-top: 70px;
+}
+
+.protected-wrapper .icon,
+.fourofour-wrapper .icon {
+  max-height: 192px;
+  max-width: 192px;
+}
+
+.protected-title,
+.fourofour-title {
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.protected-subtitle,
+.fourofour-subtitle {
+  font-weight: 200;
 }
 
 /* Footer */
@@ -68,10 +115,36 @@ header a.link.active {
   color: var(--layerOneTextColor) !important;
   margin: 0px !important;
   max-width: none !important;
+  padding: 5px 0px;
   box-shadow: -1px -1px 10px #0000002b;
   position: fixed;
   bottom: 0;
   /* min-height: 200px; */
+}
+
+/* Get started */
+.get-started-step-wrapper {
+  padding: 20px 0px;
+}
+
+.get-started-label {
+  flex-direction: column !important;
+}
+
+.MuiStepLabel-iconContainer {
+  padding: 5px !important;
+}
+
+.css-1vyamtt-MuiStepLabel-labelContainer span {
+  font-size: 16px;
+  padding-top: 3px;
+}
+
+.code-example {
+  background: black;
+  color: white;
+  padding: 15px;
+  border-radius: 4px;
 }
 
 /* Media queries */

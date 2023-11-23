@@ -12,7 +12,7 @@ export default function Layout() {
   return (
     <div id="app-wrapper">
       <Header />
-      <Container>
+      <Container className="content-container">
         <Outlet />
       </Container>
       <Footer />
