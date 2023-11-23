@@ -5,7 +5,6 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 
 import useStore from "../store";
 
@@ -188,9 +187,9 @@ function StepStateAndAPI() {
           <br />
           <br />
           <div className="code-example">
-            {`export const getUsers = async () => {`}
-            <br />
             {`// Get all users`}
+            <br />
+            {`export const getUsers = async () => {`}
             <br />
             {'const usersBaseURL = `${"API_BASE_URL"}/users`;'}
             <br />
@@ -208,6 +207,21 @@ function StepStateAndAPI() {
           complexities of HTTP requests, token handling, and URL construction,
           making it easier for developers to manage and extend the application's
           interaction with external APIs.
+          <br />
+          To learn more about Zustand{" "}
+          <a target="_zustand" href="https://zustand-demo.pmnd.rs/">
+            click here
+          </a>
+          .
+          <br />
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <a target="_mui" href="https://zustand-demo.pmnd.rs/">
+              <img
+                src="https://repository-images.githubusercontent.com/180328715/fca49300-e7f1-11ea-9f51-cfd949b31560"
+                style={{ maxWidth: 200, maxHeight: 200 }}
+              />
+            </a>
+          </div>
         </div>
       </>
     </>
@@ -221,9 +235,77 @@ function StepRouting() {
         <div style={{ fontSize: 36, fontWeight: 200, marginBottom: 30 }}>
           Routing system
         </div>
-        <div
-          style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}
-        ></div>
+        <div style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}>
+          In this app, the routing system is defined in the routes.js file as an
+          array of objects, each representing a specific route in the
+          application. Each route object contains essential information such as
+          the path (key 'path'), the React component associated with the route
+          (key 'component'), and whether the route requires authentication for
+          access (key 'authentication').
+          <br />
+          <br />
+          <div className="code-example">
+            {`// Public route`}
+            <br />
+            {`{`}
+            <br />
+            {`path: "/",`}
+            <br />
+            {`component: Home,`}
+            <br />
+            {`},`}
+            <br />
+            <br />
+            {`// Protected route`}
+            <br />
+            {`{`}
+            <br />
+            {`path: "/dashboard",`}
+            <br />
+            {`component: Dashboard,`}
+            <br />
+            {`authentication: true,`}
+            <br />
+            {`},`}
+            <br />
+          </div>
+          <br />
+          The app itself is designed to handle access to these routes, ensuring
+          that only authorized (logged-in) users can access routes marked as
+          requiring authentication. If a user attempts to access a restricted
+          route without proper authorization, the app displays an appropriate
+          message, enhancing the security and user experience.
+          <br />
+          <br />
+          On the server side, an additional file named prefetchRoutes.js is
+          employed to facilitate data prefetching and initialize the store with
+          prefetched data. This is crucial for enabling full server-side
+          rendering of the route. The prefetchRoutes.js file is structured as an
+          array of objects, each specifying a path and a prefetch property.
+          <br />
+          <br />
+          The prefetch property is an array of objects, where the key represents
+          the store key to be populated initially, and the value is a function
+          executed serverside. This function fetches the necessary data for the
+          specified store key, ensuring that the store is initialized with the
+          required data before rendering the route serverside.
+          <br />
+          <br />
+          <div className="code-example">
+            {`{`}
+            <br />
+            {`path: "/",`}
+            <br />
+            {`// Prefetch data for initial store state`}
+            <br />
+            {`// prefetch: [  { 'store key': 'action to perform to get data' }  ]`}
+            <br />
+            {`prefetch: [ { posts: getPosts } ],`}
+            <br />
+            {`},`}
+            <br />
+          </div>
+        </div>
       </>
     </>
   );
@@ -236,9 +318,127 @@ function StepUI() {
         <div style={{ fontSize: 36, fontWeight: 200, marginBottom: 30 }}>
           UI Library - MUI
         </div>
+        <div style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}>
+          This app leverages the{" "}
+          <span style={{ fontWeight: 600 }}>Material-UI (MUI)</span> library for
+          styling its components, providing a consistent and aesthetically
+          pleasing user interface. Material-UI is a popular React component
+          library that implements Google's Material Design principles, offering
+          a set of pre-designed, customizable components that adhere to modern
+          design standards.
+          <br />
+          To learn more about MUI{" "}
+          <a target="_mui" href="https://mui.com/material-ui/getting-started/">
+            click here
+          </a>
+          .
+          <br />
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <a
+              target="_mui"
+              href="https://mui.com/material-ui/getting-started/"
+            >
+              <img
+                src="https://mui.com/static/logo.png"
+                style={{ maxWidth: 200, maxHeight: 200 }}
+              />
+            </a>
+          </div>
+        </div>
         <div
-          style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}
-        ></div>
+          style={{
+            fontSize: 36,
+            fontWeight: 200,
+            marginTop: 50,
+            marginBottom: 30,
+          }}
+        >
+          Style
+        </div>
+        <div style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}>
+          The styling foundation is built on{" "}
+          <span style={{ fontWeight: 600 }}>CSS variables</span>, providing a
+          flexible and dynamic approach to styling elements. These variables,
+          defined at the top of the HTML, include crucial parameters such as
+          content{" "}
+          <span style={{ fontWeight: 600 }}>
+            background colors, text colors, fonts
+          </span>{" "}
+          used throught the app and{" "}
+          <span style={{ fontWeight: 600 }}>dimensions</span> of various
+          elements. This allows for dynamic theming and easy customization
+          throughout the application.
+          <br /> <br />
+          Notably, the style information is prefetched on the server, ensuring a
+          seamless initial rendering of the app. The app utilizes a getStyle
+          function to fetch this styling information. While the function
+          currently returns mock data, the intention is to implement a remote
+          API call to dynamically fetch the style data from a server, enhancing
+          the app's ability to adapt its appearance based on external
+          configurations.
+          <br />
+          <br />
+          <div className="code-example">
+            {`html {`}
+            <br />
+            {`--htmlBackgroundColor: #e5e5e5;`}
+            <br />
+            {`--layerOneBackgroundColor: #1ac9a1;`}
+            <br />
+            {`--layerOneTextColor: #fff;`}
+            <br />
+            {`--layerTwoBackgroundColor: #1ac9a1;`}
+            <br />
+            {`--layerTwoTextColor: #fff;`}
+            <br />
+            {`--modalBackgroundColor: ;`}
+            <br />
+            {`--modalTextColor: ;`}
+            <br />
+            {`--logo: /assets/img/logo.svg;`}
+            <br />
+            {`--fontFamily: Inter;`}
+            <br />
+            {`}`}
+            <br />
+          </div>
+        </div>
+        <div
+          style={{
+            fontSize: 36,
+            fontWeight: 200,
+            marginTop: 50,
+            marginBottom: 30,
+          }}
+        >
+          Layout
+        </div>
+        <div style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}>
+          The app adopts a structured layout approach to ensure a consistent and
+          organized presentation of its components. Every page or route is
+          enveloped by a{" "}
+          <span style={{ fontWeight: 600 }}>
+            higher-order component named Layout
+          </span>
+          , which orchestrates a standardized structure comprising a{" "}
+          <span style={{ fontWeight: 600 }}>Header, Content, and Footer</span>.
+          <br />
+          <br />
+          The content of each page is rendered within the designated{" "}
+          <span style={{ fontWeight: 600 }}>Content</span> section, encapsulated
+          within a container to maintain a uniform appearance. This
+          containerization ensures a cohesive design across different pages,
+          sparing developers from concerning themselves with individual styling
+          intricacies.
+          <br />
+          <br />
+          Moreover, the layout is designed to be{" "}
+          <span style={{ fontWeight: 600 }}>responsive</span>, adapting
+          seamlessly to various devices. This responsive behavior alleviates
+          developers from the burden of manually handling different screen
+          sizes, contributing to a user-friendly experience across a range of
+          devices.
+        </div>
       </>
     </>
   );
@@ -247,14 +447,23 @@ function StepUI() {
 function StepDone() {
   return (
     <>
-      <>
+      <div>
         <div style={{ fontSize: 36, fontWeight: 200, marginBottom: 30 }}>
           Start Developing!
         </div>
-        <div
-          style={{ textAlign: "justify", fontSize: 20, lineHeight: 1.7 }}
-        ></div>
-      </>
+        <div style={{ textAlign: "center", fontSize: 20, lineHeight: 1.7 }}>
+          <iframe
+            src="https://lottie.host/embed/f0517254-7863-4364-8dae-4c2bf1742822/gFgf6VoXNc.json"
+            style={{
+              width: "100%",
+              border: "none",
+              minHeight: 200,
+              maxHeight: 300,
+            }}
+          ></iframe>
+          We're excited to see what you build with this powerful foundation!
+        </div>
+      </div>
     </>
   );
 }
@@ -280,12 +489,15 @@ function StepperBottom({
 
   // In any other case show back and next buttons
   return (
-    <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+    <Box
+      sx={{ display: "flex", flexDirection: "row", pt: 2, marginTop: "30px" }}
+    >
       <Button
         color="inherit"
         disabled={activeStep === 0}
         onClick={handleBack}
         sx={{ mr: 1 }}
+        style={{ display: activeStep === 0 ? "none" : "" }}
       >
         Back
       </Button>
@@ -308,10 +520,16 @@ export default function GetStarted() {
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 200);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 200);
   };
 
   const handleReset = () => {

@@ -4,7 +4,7 @@ export const prefetchRoutes = [
   {
     path: "/posts",
     // Prefetch data for initial store state
-    // { 'store key': 'action to perform to get data' }
+    // [prefetch: { 'store key': 'action to perform to get data' }]
     prefetch: [{ posts: getPosts }],
   },
   {

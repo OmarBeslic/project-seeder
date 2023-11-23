@@ -135,8 +135,8 @@ export const getStyle = async () => {
 };
 
 // Specific api requests
+// Login user
 export const login = async ({ identifier, password } = {}) => {
-  // Login user
   // const loginUrl = `${API_BASE_URL}/login`;
   // let loggedIn = await apiPost({ url: loginUrl, options: { body: { identifier, password} } });
 
@@ -151,8 +151,8 @@ export const login = async ({ identifier, password } = {}) => {
   return loggedIn?.data || false;
 };
 
+// Logout user
 export const logout = async () => {
-  // Logout user
   // const logoutUrl = `${API_BASE_URL}/logout`;
   // let loggedOut = await apiGet({ url: logoutUrl });
 
@@ -162,11 +162,11 @@ export const logout = async () => {
   return true;
 };
 
+// Get all users
 export const getUsers = async () => {
-  // Get all users
   const usersBaseURL = `${API_BASE_URL}/users`;
   let users = await apiGet({ url: usersBaseURL });
-  console.log(users);
+
   return users?.data || false;
 };
 
@@ -189,16 +189,16 @@ export const getUser = async () => {
   return user || false;
 };
 
+// Get all posts
 export const getPosts = async () => {
-  // Get all posts
   const postsBaseURL = `${API_BASE_URL}/posts`;
   let posts = await apiGet({ url: postsBaseURL });
 
   return posts?.data || false;
 };
 
+// Get post by id
 export const getPost = async ({ id = false } = {}) => {
-  // Get post by id
   const postURL = `${API_BASE_URL}/posts/${id}`;
   let post = await apiGet({ url: postURL });
 
