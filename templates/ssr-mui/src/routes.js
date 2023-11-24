@@ -6,6 +6,7 @@ import Post from "./pages/Post.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profile from "./pages/Profile.jsx";
 import FourOfour from "./pages/FourOfour.jsx";
+import { getPost, getPosts } from "./api.js";
 
 export const routes = [
   {
@@ -23,10 +24,14 @@ export const routes = [
   {
     path: "/posts",
     component: Posts,
+    // Prefetch data for initial store state
+    // [prefetch: { 'store key': 'action to perform to get data' }]
+    prefetch: [{ posts: getPosts }],
   },
   {
     path: "/posts/:id",
     component: Post,
+    prefetch: [{ post: getPost }],
   },
   {
     path: "/dashboard",

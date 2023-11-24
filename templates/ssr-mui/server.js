@@ -11,8 +11,6 @@ import { matchPath } from "react-router";
 import { getStyle, getUser } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
 
-import { prefetchRoutes } from "./src/prefetchRoutes.js";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isTest = process.env.VITEST;
@@ -96,8 +94,11 @@ export async function createServer(
       globalThis.___COOKIES___ = req?.cookies;
       prefetched.cookies = req?.cookies;
 
+      // Import routes to get info for prefetching
+      const routes = await vite.ssrLoadModule("/src/routes.js");
+
       // Match route
-      const match = prefetchRoutes.find((route) =>
+      const match = routes?.routes?.find((route) =>
         matchPath({ path: route.path, exact: true, strict: false }, url)
       );
 
