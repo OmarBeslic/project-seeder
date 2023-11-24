@@ -7,42 +7,6 @@ import * as url from "url";
 
 import { input, select } from "@inquirer/prompts";
 
-// Ask user for params
-const params = {
-  projectName: await input({ message: "Enter project name" }),
-  template: await select({
-    message: "Select an app template",
-    choices: [
-      {
-        name: "SPA - Vite + Zustand",
-        value: "spa",
-        description: "Single Page Application template - Vite + Zustand",
-        disabled: true,
-      },
-      {
-        name: "SSR - Vite + Express + Zustand",
-        value: "ssr-default",
-        description:
-          "Serverside Application template - Vite + Express + Zustand",
-        disabled: true,
-      },
-      {
-        name: "SSR - Vite + Express + Zustand + MUI",
-        value: "ssr-mui",
-        description:
-          "Serverside Application template - Vite + Express + Zustand + MUI",
-      },
-      {
-        name: "SSR - Vite + Express + Zustand + Ant Design UI",
-        value: "ssr-ant",
-        description:
-          "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
-        disabled: true,
-      },
-    ],
-  }),
-};
-
 // Alternative for ES module
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -79,7 +43,44 @@ function executeShell(cmd) {
 }
 
 // Run
-const main = async ({ projectName, template }) => {
+const main = async () => {
+  // Ask user for params
+  const projectName = await input({ message: "Enter project name" });
+  const template = await select({
+    message: "Select an app template",
+    choices: [
+      {
+        name: "SPA - Vite + Zustand",
+        value: "spa",
+        description: "Single Page Application template - Vite + Zustand",
+        disabled: true,
+      },
+      {
+        name: "SSR - Vite + Express + Zustand",
+        value: "ssr-default",
+        description:
+          "Serverside Application template - Vite + Express + Zustand",
+        disabled: true,
+      },
+      {
+        name: "SSR - Vite + Express + Zustand + MUI",
+        value: "ssr-mui",
+        description:
+          "Serverside Application template - Vite + Express + Zustand + MUI",
+      },
+      {
+        name: "SSR - Vite + Express + Zustand + Ant Design UI",
+        value: "ssr-ant",
+        description:
+          "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
+        disabled: true,
+      },
+    ],
+  });
+
+  console.log("Creating app");
+  console.log("Done");
+
   // Copy template files to new folder
   var sourceDir = path.join(__dirname, `./templates/${template}`);
   var destinationDir = `${DESTINATION_FOLDER}/${projectName}`;
@@ -128,6 +129,7 @@ const main = async ({ projectName, template }) => {
   });
 
   console.log("Installing dependencies");
+  console.log("Done");
   await executeShell(`cd ./${projectName} && npm i`);
 
   console.log("Your project has been created!");
@@ -137,4 +139,4 @@ const main = async ({ projectName, template }) => {
   );
 };
 
-main(params).catch((e) => console.log(e));
+main().catch((e) => console.log(e));
