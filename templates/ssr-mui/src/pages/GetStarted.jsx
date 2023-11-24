@@ -240,8 +240,9 @@ function StepRouting() {
           array of objects, each representing a specific route in the
           application. Each route object contains essential information such as
           the path (key 'path'), the React component associated with the route
-          (key 'component'), and whether the route requires authentication for
-          access (key 'authentication').
+          (key 'component'), whether the route requires authentication for
+          access (key 'authentication'), and a prefetch property which defines
+          which data the route needs prefetched.
           <br />
           <br />
           <div className="code-example">
@@ -268,6 +269,22 @@ function StepRouting() {
             <br />
             {`},`}
             <br />
+            <br />
+            {`// Route with prefetch`}
+            <br />
+            {`{`}
+            <br />
+            {`path: "/posts",`}
+            <br />
+            {`component: "Posts",`}
+            <br />
+            {`prefetch: [ { posts: getPosts } ],`}
+            <br />
+            {`// Prefetch data for initial store state`}
+            <br />
+            {`// prefetch: [  { 'store key': 'action to perform to get data' }  ]`}
+            <br />
+            {`},`}
           </div>
           <br />
           The app itself is designed to handle access to these routes, ensuring
@@ -277,34 +294,13 @@ function StepRouting() {
           message, enhancing the security and user experience.
           <br />
           <br />
-          On the server side, an additional file named prefetchRoutes.js is
-          employed to facilitate data prefetching and initialize the store with
-          prefetched data. This is crucial for enabling full server-side
-          rendering of the route. The prefetchRoutes.js file is structured as an
-          array of objects, each specifying a path and a prefetch property.
+          The <span style={{ fontWeight: 600 }}>prefetch</span> property is an
+          array of objects, where the key represents the store key to be
+          populated initially, and the value is a function executed serverside.
+          This function fetches the necessary data for the specified store key,
+          ensuring that the store is initialized with the required data before
+          rendering the route serverside.
           <br />
-          <br />
-          The prefetch property is an array of objects, where the key represents
-          the store key to be populated initially, and the value is a function
-          executed serverside. This function fetches the necessary data for the
-          specified store key, ensuring that the store is initialized with the
-          required data before rendering the route serverside.
-          <br />
-          <br />
-          <div className="code-example">
-            {`{`}
-            <br />
-            {`path: "/",`}
-            <br />
-            {`// Prefetch data for initial store state`}
-            <br />
-            {`// prefetch: [  { 'store key': 'action to perform to get data' }  ]`}
-            <br />
-            {`prefetch: [ { posts: getPosts } ],`}
-            <br />
-            {`},`}
-            <br />
-          </div>
         </div>
       </>
     </>
