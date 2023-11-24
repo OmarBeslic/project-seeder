@@ -104,13 +104,15 @@ export async function createServer(
       // Get required params to pass to prefetch functions
       const prefetchParams = getRouteParams({ url, path: match?.path });
 
-      // Prefetch global data and specific data for matched route
-      const prefetchData = [
-        { style: getStyle },
-        { user: getUser },
-        ...[match?.prefetch],
-      ];
+      // Prefetch global data and specific data for matched route if needed
+      const prefetchData = [{ style: getStyle }, { user: getUser }];
+      if (match?.prefetch) {
+        match.prefetch.forEach((fetch) => {
+          prefetchData.push(fetch);
+        });
+      }
 
+      console.log(prefetchData);
       const prefetchPromises = [];
       prefetchData.forEach((routeFetch) => {
         for (const key in routeFetch) {
