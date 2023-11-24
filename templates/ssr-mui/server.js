@@ -112,7 +112,6 @@ export async function createServer(
         });
       }
 
-      console.log(prefetchData);
       const prefetchPromises = [];
       prefetchData.forEach((routeFetch) => {
         for (const key in routeFetch) {
