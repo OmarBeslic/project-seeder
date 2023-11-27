@@ -75,6 +75,16 @@ export async function createServer(
     // use vite's connect instance as middleware
     app.use(vite.middlewares);
   } else {
+    vite = await (
+      await import("vite")
+    ).createServer({
+      root,
+      server: {
+        middlewareMode: true,
+      },
+      appType: "custom",
+    });
+
     app.use((await import("compression")).default());
     app.use(
       (await import("serve-static")).default(resolve("dist/client"), {
@@ -143,7 +153,7 @@ export async function createServer(
       } else {
         template = indexProd;
         // @ts-ignore
-        render = (await import("./dist/server/entry-server.js.js.js")).render;
+        render = (await vite.ssrLoadModule("/src/entry-server.jsx")).render;
       }
 
       const context = {};
