@@ -30,7 +30,7 @@ const getAllFiles = async function (dirPath, arrayOfFiles = []) {
   return arrayOfFiles;
 };
 
-function executeShell(cmd) {
+async function executeShell(cmd) {
   const exec = child.exec;
   return new Promise((resolve, reject) => {
     exec(cmd, (error, stdout, stderr) => {
@@ -78,7 +78,6 @@ const main = async () => {
   });
 
   console.log("Creating app");
-  console.log("Done");
 
   // Copy template files to new folder
   var sourceDir = path.join(__dirname, `./templates/${template}`);
@@ -127,9 +126,14 @@ const main = async () => {
     });
   });
 
-  console.log("Installing dependencies");
   console.log("Done");
+
+  console.log("Installing dependencies");
+
   await executeShell(`cd ./${projectName} && npm i`);
+
+  console.log("Done");
+  console.log("");
 
   console.log("Your project has been created!");
   console.log("");
