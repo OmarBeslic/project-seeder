@@ -70,10 +70,9 @@ const main = async () => {
       },
       {
         name: "SSR - Vite + Express + Zustand + Ant Design UI",
-        value: "ssr-ant",
+        value: "ssr-antd",
         description:
           "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
-        disabled: true,
       },
     ],
   });
