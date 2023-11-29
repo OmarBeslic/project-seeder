@@ -45,37 +45,47 @@ async function executeShell(cmd) {
 // Run
 const main = async () => {
   // Ask user for params
-  const projectName = await input({ message: "Enter project name" });
-  const template = await select({
-    message: "Select an app template",
-    choices: [
-      {
-        name: "SPA - Vite + Zustand",
-        value: "spa",
-        description: "Single Page Application template - Vite + Zustand",
-        disabled: true,
-      },
-      {
-        name: "SSR - Vite + Express + Zustand",
-        value: "ssr-default",
-        description:
-          "Serverside Application template - Vite + Express + Zustand",
-        disabled: true,
-      },
-      {
-        name: "SSR - Vite + Express + Zustand + MUI",
-        value: "ssr-mui",
-        description:
-          "Serverside Application template - Vite + Express + Zustand + MUI",
-      },
-      {
-        name: "SSR - Vite + Express + Zustand + Ant Design UI",
-        value: "ssr-antd",
-        description:
-          "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
-      },
-    ],
-  });
+  let projectName = null;
+  let template = null;
+  try {
+    projectName = await input({ message: "Enter project name" });
+    template = await select({
+      message: "Select an app template",
+      choices: [
+        {
+          name: "SPA - Vite + Zustand",
+          value: "spa",
+          description: "Single Page Application template - Vite + Zustand",
+          disabled: true,
+        },
+        {
+          name: "SSR - Vite + Express + Zustand",
+          value: "ssr-default",
+          description:
+            "Serverside Application template - Vite + Express + Zustand",
+          disabled: true,
+        },
+        {
+          name: "SSR - Vite + Express + Zustand + MUI",
+          value: "ssr-mui",
+          description:
+            "Serverside Application template - Vite + Express + Zustand + MUI",
+        },
+        {
+          name: "SSR - Vite + Express + Zustand + Ant Design UI",
+          value: "ssr-antd",
+          description:
+            "Serverside Application template - Vite + Express + Zustand + Ant Design UI",
+        },
+      ],
+    });
+  } catch (error) {
+    console.log(
+      "There has been an error getting parameters, please try again."
+    );
+    console.log(error);
+    return;
+  }
 
   console.log("Creating app");
 
