@@ -50,6 +50,69 @@ html *::-webkit-scrollbar-thumb {
   margin-bottom: 10px;
 }
 
+.menu-logged-out,
+.menu-logged-in,
+.menu-user-action {
+  display: inline-block;
+  padding: 0px 30px;
+}
+
+.modal-login-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #00000047;
+}
+
+.modal-login-box {
+  position: relative;
+  background: var(--contentBackgroundColor);
+  max-width: 90%;
+  margin: auto;
+  margin-top: 35vh;
+  width: 400px;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 1px 1px 20px #00000080;
+}
+
+.modal-login-close {
+  cursor: pointer;
+  max-height: 20px;
+  max-width: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.modal-login-form {
+  margin: 30px 0px 10px 0px;
+}
+
+.modal-login-form button {
+  background: var(--ctaBackgroundColor);
+  color: var(--ctaTextColor);
+  padding: 10px 30px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 1px 1px 7px #0000007d;
+}
+
+.modal-login-form input {
+  display: block;
+  width: 100%;
+  padding: 7px;
+  margin: 10px 0px;
+  border-radius: 7px;
+  background: #00000038;
+  border: none;
+  color: white;
+}
+
 #content-wrapper {
   background: var(--contentBackgroundColor);
   color: var(--contentTextColor);

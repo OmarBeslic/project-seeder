@@ -1,19 +1,39 @@
+#!/usr/bin/env node
+import * as child from "child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
+import cookieParser from "cookie-parser";
 import "dotenv/config";
 import { matchPath } from "react-router";
 
-import { getStyle } from "./src/api.js";
+import { getStyle, getUser } from "./src/api.js";
 import { getRouteParams, prepareStyleCSS } from "./src/helpers.js";
-
-import { prefetchRoutes } from "./src/prefetchRoutes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isTest = process.env.VITEST;
 const appPort = process.env.APP_PORT || 3000;
+var openBrowserCommand =
+  process.platform == "darwin"
+    ? "open"
+    : process.platform == "win32"
+    ? "start"
+    : "xdg-open";
+
+// Helpers
+function executeShell(cmd) {
+  const exec = child.exec;
+  return new Promise((resolve, reject) => {
+    exec(cmd, (error, stdout, stderr) => {
+      if (error || stderr) {
+        reject(stderr);
+      }
+      resolve(stdout);
+    });
+  });
+}
 
 export async function createServer(
   root = process.cwd(),
@@ -55,6 +75,16 @@ export async function createServer(
     // use vite's connect instance as middleware
     app.use(vite.middlewares);
   } else {
+    vite = await (
+      await import("vite")
+    ).createServer({
+      root,
+      server: {
+        middlewareMode: true,
+      },
+      appType: "custom",
+    });
+
     app.use((await import("compression")).default());
     app.use(
       (await import("serve-static")).default(resolve("dist/client"), {
@@ -63,28 +93,40 @@ export async function createServer(
     );
   }
 
-  app.use("*", async (req, res) => {
+  app.use(cookieParser()).use("*", async (req, res) => {
     try {
       const url = req.originalUrl;
 
-      // Prefetch global data
-      const prefetched = {
-        style: await getStyle(),
-      };
+      // Prepare initial state to be used in store
+      const prefetched = {};
+
+      // Get cookies and store them in global scope and in store
+      globalThis.___COOKIES___ = req?.cookies;
+      prefetched.cookies = req?.cookies;
+
+      // Import routes to get info for prefetching
+      const routes = await vite.ssrLoadModule("/src/routes.js");
 
       // Match route
-      const match = prefetchRoutes.find((route) =>
+      const match = routes?.routes?.find((route) =>
         matchPath({ path: route.path, exact: true, strict: false }, url)
       );
 
       // Get required params to pass to prefetch functions
       const prefetchParams = getRouteParams({ url, path: match?.path });
 
-      // Prefetch data for matched route
-      const promises = [];
-      match?.prefetch?.forEach((routeFetch) => {
+      // Prefetch global data and specific data for matched route if needed
+      const prefetchData = [{ style: getStyle }, { user: getUser }];
+      if (match?.prefetch) {
+        match.prefetch.forEach((fetch) => {
+          prefetchData.push(fetch);
+        });
+      }
+
+      const prefetchPromises = [];
+      prefetchData.forEach((routeFetch) => {
         for (const key in routeFetch) {
-          promises.push(
+          prefetchPromises.push(
             new Promise(async (resolve) => {
               try {
                 prefetched[key] = await routeFetch[key](prefetchParams);
@@ -98,7 +140,9 @@ export async function createServer(
           );
         }
       });
-      await Promise.allSettled(promises);
+      await Promise.allSettled(prefetchPromises);
+
+      console.log(prefetched);
 
       globalThis.___PREFETCHED___ = prefetched;
 
@@ -111,7 +155,7 @@ export async function createServer(
       } else {
         template = indexProd;
         // @ts-ignore
-        render = (await import("./dist/server/entry-server.js.js.js")).render;
+        render = (await vite.ssrLoadModule("/src/entry-server.jsx")).render;
       }
 
       const context = {};
@@ -168,9 +212,17 @@ export async function createServer(
 }
 
 if (!isTest) {
+  // Run server
   createServer().then(({ app }) =>
     app.listen(appPort, () => {
-      console.log(`http://localhost:${appPort}`);
+      const appUrl = `http://localhost:${appPort}`;
+
+      console.log(""); // Empty space
+      console.log(`Your app is served on ${appUrl}`);
+      console.log(""); // Empty space
+
+      // Open browser
+      executeShell(openBrowserCommand + " " + appUrl);
     })
   );
 }
