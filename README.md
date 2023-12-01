@@ -22,6 +22,10 @@ Create new project with **npx**
 You'll be asked for your new **project's name** and which **template** to use. Your project will be created in a new folder with dependencies installed.
 
 Go to folder and run **npm start** or **yarn start** to run your project.
+
+## Requirements
+- Node.js version >= 16
+
 ## Features
 
 - SSR - Server side rendering
@@ -39,7 +43,6 @@ To run this project, you will need to add the following environment variables to
 `APP_PORT` - Port the app will run on
 
 `VITE_API_BASE_URL` - Base URL the API wrapper will build requests on, example https://jsonplaceholder.typicode.com
-
 
 ## Roadmap
 
