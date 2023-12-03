@@ -58,7 +58,16 @@ const main = async () => {
   let projectName = null;
   let template = null;
   try {
-    projectName = await input({ message: "Enter project name" });
+    projectName = await input({
+      message: "Enter project name",
+      validate: (text) => {
+        if (text.length < 1) {
+          return false;
+        }
+
+        return true;
+      },
+    });
     template = await select({
       message: "Select an app template",
       choices: [
