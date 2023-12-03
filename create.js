@@ -7,6 +7,16 @@ import * as url from "url";
 
 import { input, select } from "@inquirer/prompts";
 
+const MIN_NODE_VERSION = 16;
+
+// Check Node version and exit if minimum not supported
+const nodeVersion = process.versions.node;
+const majorVersion = `${nodeVersion}`.split(".")[0];
+if (Number(majorVersion) < MIN_NODE_VERSION) {
+  console.log("Node.js version not supported. Node.js >=16 required.");
+  process.exit();
+}
+
 // Alternative for ES module
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
